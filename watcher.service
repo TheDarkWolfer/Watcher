@@ -1,0 +1,15 @@
+[Unit]
+Description=Python Connection Watcher Bot
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/camille/main.py
+Restart=always
+User=camille
+WorkingDirectory=/home/camille/
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
