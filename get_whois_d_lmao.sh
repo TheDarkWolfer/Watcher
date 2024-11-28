@@ -71,7 +71,7 @@ while read -r ip; do
     else 
     
         {
-            echo "n°$DONE - $IP"
+            echo "n°$DONE - $ip"
         } >> "$RESULT_FILE"
     
     fi
