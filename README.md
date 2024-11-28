@@ -1,4 +1,4 @@
-#1 WATCHER
+# WATCHER
 ---
 ## What's in this repository
 This tool aims to notify you when connections are attempted on your device on specific ports, and sends that information to you through a discord bot with the IP, the timestamp, and the affected service. Those informations are also logged in a file of your choosing (default being `whois_results.log`) 
