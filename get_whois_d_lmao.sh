@@ -46,9 +46,7 @@ fi
 DONE=0
 
 # Check for already processed IPs
-if [[ $FROM_SCRATCH = "true" ]] ; then
-    echo "Starting from scratch - ignoring previous results..."
-else
+if ! [[ $FROM_SCRATCH = "true" ]] ; then
     # If the result file exists
     if [ -f "$RESULT_FILE" ]; then
         # We extract any block that matches "IP=[...]" from it 
