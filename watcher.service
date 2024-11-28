@@ -4,10 +4,10 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 /home/camille/main.py
+ExecStart=/usr/bin/python3 /path/to/main.py
 Restart=always
-User=camille
-WorkingDirectory=/home/camille/
+User=your_username
+WorkingDirectory=/path/to/bot/directory
 StandardOutput=journal
 StandardError=journal
 
