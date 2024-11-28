@@ -9,7 +9,10 @@ for arg in "$@"; do
     case $arg in
         --from-scratch|-fs)
             FROM_SCRATCH=true
-            break
+            ;;
+        --no-poll|-np)
+            NO_POLL=true
+            RESULT_FILE="IPs.log"
             ;;
     esac
 done
@@ -24,7 +27,6 @@ if [ "$TOTAL_IPS" -eq 0 ]; then
     exit 1
 fi
 
-RESULT_FILE="whois_results.log"
 DONE=0
 
 # Check for already processed IPs
@@ -49,18 +51,28 @@ while read -r ip; do
     PERCENT=$((DONE * 100 / TOTAL_IPS))
     [[ -t 1 ]] && echo -ne "Progress: $PERCENT% - $DONE out of $TOTAL_IPS\r"
 
-    WHOIS_RESULT=$(whois "$ip")
-    IPINFO_RESULT=$(curl -s "ipinfo.io/$ip?token=$IPINFO_TOKEN")
+    if ! [[ "$NO_POLL" = "true"]]; then
     
-    {
-        echo "=======[$IP]======="
-        echo "IP=$ip"
-        echo "-------"
-        echo "WHOIS=$WHOIS_RESULT"
-        echo "-------"
-        echo "IPINFO=$IPINFO_RESULT"
-        echo "=======[---]======="
-    } >> "$RESULT_FILE"
+        WHOIS_RESULT=$(whois "$ip")
+        IPINFO_RESULT=$(curl -s "ipinfo.io/$ip?token=$IPINFO_TOKEN")
+    
+        {
+            echo "=======[$IP]======="
+            echo "IP=$ip"
+            echo "-------"
+            echo "WHOIS=$WHOIS_RESULT"
+            echo "-------"
+            echo "IPINFO=$IPINFO_RESULT"
+            echo "=======[---]======="
+        } >> "$RESULT_FILE"
+    
+    else 
+    
+        {
+            echo "n°$DONE - $IP"
+        } >> "$RESULT_FILE"
+    
+    fi
 
     DONE=$((DONE + 1))
 
