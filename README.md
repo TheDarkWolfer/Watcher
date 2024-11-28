@@ -3,6 +3,7 @@
 ## What's in this repository
 This tool aims to notify you when connections are attempted on your device on specific ports, and sends that information to you through a discord bot with the IP, the timestamp, and the affected service. Those informations are also logged in a file of your choosing (default being `whois_results.log`) 
 There is also a small script (`get_whois_d_lmao.sh`) that you can use in order to automatically poll whois servers and ipinfo.io in order to gather information on the IPs that attempted to connect, gathered from the aforementionned logs.
+If necessary, there is also an example of how the .env file for this project should be written, with the variables being already available and just needing to fill in the blanks.
 ---
 #2 How to use
 First, clone this repository using git and cd into it:
@@ -33,6 +34,8 @@ In order to not get rate-limited with ipinfo.io, you'll need to get a token. Thi
 
 **Result file's name**
 Pretty straightforward, you just provide the name you want to give the resulting file in the `RESULT_FILE` variable in the `.env` file.
+
+You can use the `.env-EXAMPLE` file from this repository, fill in the blanks yourself, and rename it to just `.env` before use
 
 You now have the choice between running the bot (and/or the script) from your current shell, or use the provided service file. If you choose to use a systemd service, here is what to do (Just be careful with this, the consequences are worse if you mess up with systemd) :
 
