@@ -101,7 +101,7 @@ async def send_dm_notification(message):
 async def on_ready():
     print(f"[INFO] Logged in as {bot.user}")
     print("[INFO] Monitoring started. Press Ctrl+C to stop.")
-    await send_dm_notification(f"Bot ready at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ma'am!")
+    await send_dm_notification(f"Bot ready at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} !")
     bot.loop.create_task(check_connections())
 
 # Start the bot
