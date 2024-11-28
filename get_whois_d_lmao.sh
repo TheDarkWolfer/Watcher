@@ -33,6 +33,9 @@ done
 # remove the IPv4 to IPv6 identifier, and store all of that in the IPS variable
 IPS=$(cat ./*-watcher.log | awk '{print $9}' | sed -nE '/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/p' | grep -E -v '^(10\.|127\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1]))' | sed 's/^::ffff://' | uniq)
 
+# Sort and remove duplicates
+IPS=$(echo "$IPS" | sort | uniq)
+
 # Count how may we have, used later to provide info on overall progress
 TOTAL_IPS=$(echo "$IPS" | wc -l)
 
