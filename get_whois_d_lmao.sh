@@ -51,7 +51,7 @@ while read -r ip; do
     PERCENT=$((DONE * 100 / TOTAL_IPS))
     [[ -t 1 ]] && echo -ne "Progress: $PERCENT% - $DONE out of $TOTAL_IPS\r"
 
-    if ! [[ "$NO_POLL" = "true"]]; then
+    if ! [[ "$NO_POLL" = "true" ]] ; then
     
         WHOIS_RESULT=$(whois "$ip")
         IPINFO_RESULT=$(curl -s "ipinfo.io/$ip?token=$IPINFO_TOKEN")
