@@ -9,10 +9,12 @@ for arg in "$@"; do
     case $arg in
         --from-scratch|-fs)
             FROM_SCRATCH=true
+            echo -e "Ignoring previous results..."
             ;;
         --no-poll|-np)
             NO_POLL=true
             RESULT_FILE="IPs.log"
+            echo -e "IPs will be logged to IPs.log with no polling of whois servers or ipinfo"
             ;;
     esac
 done
