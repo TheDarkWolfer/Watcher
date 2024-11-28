@@ -37,6 +37,13 @@ In order to not get rate-limited with ipinfo.io, you'll need to get a token. Thi
 **Result file's name**
 Pretty straightforward, you just provide the name you want to give the resulting file in the `RESULT_FILE` variable in the `.env` file.
 
+**Ports to monitor, and alert level**
+You will need to specify the ports you want the bot to watch over through the .env file. It should be formated as a json dictionnary, as such `PORTS_TO_SCAN={<port n°>:<alert level>}`, with the port number being self-explanatory and the alert level being an integer from 1 to 3, such that :
+- 1 <> INFO     for non-critical services like a chatroom
+- 2 <> WARNING  when the service in question should be more carefully monitored
+- 3 <> ALERT    when the service is critical and access to it should be controlled as tightly as possible
+
+
 You can use the `.env-EXAMPLE` file from this repository, fill in the blanks yourself, and rename it to just `.env` before use
 
 You now have the choice between running the bot (and/or the script) from your current shell, or use the provided service file. If you choose to use a systemd service, here is what to do (Just be careful with this, the consequences are worse if you mess up with systemd) :
