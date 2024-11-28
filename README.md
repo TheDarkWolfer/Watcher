@@ -1,11 +1,13 @@
 # WATCHER
 ---
 ## What's in this repository
+
 This tool aims to notify you when connections are attempted on your device on specific ports, and sends that information to you through a discord bot with the IP, the timestamp, and the affected service. Those informations are also logged in a file of your choosing (default being `whois_results.log`) 
 There is also a small script (`get_whois_d_lmao.sh`) that you can use in order to automatically poll whois servers and ipinfo.io in order to gather information on the IPs that attempted to connect, gathered from the aforementionned logs.
 If necessary, there is also an example of how the .env file for this project should be written, with the variables being already available and just needing to fill in the blanks.
 ---
-#2 How to use
+## How to use
+
 First, clone this repository using git and cd into it:
 ```
 git clone https://github.com/TheDarkWolfer/Watcher
@@ -71,6 +73,7 @@ sudo systemctl enable --now watcher
 ```
 ---
 ## What to do with the logs ?
+
 The logs created will be under the format `YYY-MM-DD-watcher.log`, one for each day. The bot only opens them when writing and closes them immediately after, so *in theory* you should be able to remove, move or write into them even when the bot is running. *In practice*, I advice against that, just to be safe.
 
 You can either comb through the logs yourself, or you could use the `get_whois_d_lmao.sh` script to do that for you. It'll poll whois servers and ipinfo.io (if you have a token) and save the results of all of these queries in a file. 
@@ -91,4 +94,5 @@ If you want to check every IP address even if they were already whois'd in a pre
 ```
 
 ## Running in a non-interactive environment
+
 The `get_whois_d_lmao.sh` script isn't meant to be run in a non-interactive environment (cron job, etc...) but it should be possible if you ever need to automate. It will avoid printing progress information other than the runtime of the program, which you can choose to log to a file, let your system's journaling component do the work, or just send to `/dev/null` to get rid of it. Keep in mind that you'll need to make sure the script still has access to both the `.env` file and the logs created by the logging bot, as it won't function otherwise.
