@@ -31,7 +31,7 @@ done
 # to do with awk since it's always the 9th element of the line. We then extract the 
 # IPv4 address using SED, remove any local IPs as they wouldn't yield useful informations,
 # remove the IPv4 to IPv6 identifier, and store all of that in the IPS variable
-IPS=$(cat ./*-watcher.log | awk '{print $9}' | sed -nE '/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/p' | grep -E -v '^(10\.|127\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1]))' | sed 's/^::ffff://' | uniq)
+IPS=$(cat ./*-watcher.log | awk '{print $9}' | sed -nE '/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/p' | grep -E -v '^(10\.|127\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1]))' | sed 's/^::ffff://' | sort | uniq)
 
 # Sort and remove duplicates
 IPS=$(echo "$IPS" | sort | uniq)
