@@ -11,6 +11,8 @@ import json
 import ast
 from dotenv import load_dotenv
 
+#TODO Refactor the log & message code so that it's only one function.
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -41,6 +43,12 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 def log2file(ip, rport, lport, level):
     with open(f"{datetime.now().strftime('%Y-%m-%d')}-watcher.log", "a") as f:  # Use "a" mode to append
         f.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - {level}] > Connection attempt from {ip} from remote port {rport} to local port {lport}\n")
+        f.close()
+
+def printAndLog(text:str,level:str):
+    with open(f"{datetime.now().strftime('%Y-%m-%d')}-watcher.log", "a") as f:  # Use "a" mode to append
+        f.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - {level}] > {test}")
+        f.close()
 
 # Function to check active connections on specified ports
 async def check_connections():
@@ -79,7 +87,7 @@ async def check_connections():
                                f"from {conn.raddr.ip}:{conn.raddr.port} at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
                     print(message)
                     await send_dm_notification(message)
-                    log2file(conn.raddr.ip,conn.raddr.port,conn.laddr.port,"INFO")
+                    log2file(ip=conn.raddr.ip,rport=conn.raddr.port,lport=conn.laddr.port,level=level)
 
 
         # Update known connections
