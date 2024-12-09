@@ -99,6 +99,9 @@ If you want to check every IP address even if they were already whois'd in a pre
 ```
 ./get_whois_d_lmao.sh -fs # Or --from-scratch
 ```
+## To-Do list
+-[ ] Separate WHOIS and ipinfo.io results
+-[ ] Add data plotting of the IP's information
 
 ## Running in a non-interactive environment
 
