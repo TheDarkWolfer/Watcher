@@ -70,6 +70,9 @@ fi
 # Counter for all processed IPs
 DONE=0
 
+# Date for the log names
+DATE="$(date +'%Y%m%d-%H-%M-%S-')"
+
 # Check for already processed IPs
 if ! [[ $FROM_SCRATCH = "true" ]] ; then
     # If the result file exists
@@ -80,6 +83,11 @@ if ! [[ $FROM_SCRATCH = "true" ]] ; then
     else
         PROCESSED_IPS=""
     fi
+fi
+
+# If we're using separate log files, we prepare the .json one properly
+if ! [[ "$UNITE" = "true" ]] ; then
+    echo -e "[\n" >> "$DATE-IPs.json"
 fi
 
 # Main processing loop
@@ -119,8 +127,8 @@ while read -r ip; do
 
             # Logging the json results from polling ipinfo.io
             {
-                echo -e "$IPINFO_RESULT"
-            } >> "$RESULT_FILE-IPs.json"
+                echo -e "$IPINFO_RESULT,"
+            } >> "$DATE-IPs.json"
 
             # Logging the text results from polling WHOIS servers
             {
@@ -152,6 +160,12 @@ while read -r ip; do
     PERCENT=$((DONE * 100 / TOTAL_IPS))
     [[ -t 1 ]] && echo -ne "Progress: $PERCENT% - $DONE out of $TOTAL_IPS\r"
 done <<< "$IPS" # We feed the list of IPs we got into the for loop
+
+# If we're using separate log files, we prepare the .json one properly
+# This time, we close the bracket
+if ! [[ "$UNITE" = "true" ]] ; then
+    echo -e "]" >> "$DATE-IPs.json"
+fi
 
 # Calculate the program's runtime
 END=$(date +%s)
