@@ -13,6 +13,13 @@ source .env
 # Arguments handling with a case statement and a for loop
 for arg in "$@"; do
     case $arg in
+
+        # Whether or not to unite the WHOIS and ipinfo.io results in one file or not
+        --unite|-u)
+            UNITE=true
+            echo -e "Uniting results in one file $RESULT_FILE"
+            ;;
+
         # This one tells the program to re-process IPs regardless of 
         # whether or not they are present in the last output file(s)
         --from-scratch|-fs)
@@ -35,6 +42,7 @@ for arg in "$@"; do
             Arguments :
                 -np --no-poll       :   doesn't poll the server, just counts and saves unique IP addresses
                 -fs --from-scratch  :   ignores previous results
+                -u  --unite         :   saves WHOIS and ipinfo.io results in one file instead of separate ones
                 -h  --help          :   prints this message
             "
             exit -99
@@ -95,16 +103,35 @@ while read -r ip; do
         WHOIS_RESULT=$(whois "$ip")
         IPINFO_RESULT=$(curl -s "ipinfo.io/$ip?token=$IPINFO_TOKEN")
     
-        # Format the code result in a pleasant to read format
-        {
-            echo "=======[$IP]======="
-            echo "IP=$ip"
-            echo "-------"
-            echo "WHOIS=$WHOIS_RESULT"
-            echo "-------"
-            echo "IPINFO=$IPINFO_RESULT"
-            echo "=======[---]======="
-        } >> "$RESULT_FILE" # Save it to a file
+        if [[ "$UNITE" = "true" ]] ; then
+
+            # Format the code result in a pleasant to read format
+            {
+                echo -e "=======[$IP]======="
+                echo -e "IP=$ip"
+                echo -e "-------"
+                echo -e "WHOIS=$WHOIS_RESULT"
+                echo -e "-------"
+                echo -e "IPINFO=$IPINFO_RESULT"
+                echo -e "=======[---]======="
+            } >> "$RESULT_FILE" # Save it to a file
+        else
+
+            # Logging the json results from polling ipinfo.io
+            {
+                echo -e "$IPINFO_RESULT"
+            } >> "$RESULT_FILE-IPs.json"
+
+            # Logging the text results from polling WHOIS servers
+            {
+                echo -e "\n"
+                echo -e "=======[$IP]======="
+                echo -e "$WHOIS_RESULT"
+                echo -e "=======[-o-]======="
+                echo -e "\n"
+            } >> "$RESULT_FILE.whois"
+        
+        fi
     
     # This runs if polling is indeed disabled
     else 
