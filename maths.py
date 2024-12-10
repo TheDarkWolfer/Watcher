@@ -1,11 +1,20 @@
 import json
-from collections import defaultdict
+from collections import defaultdict, Counter
 import matplotlib.pyplot as plt
 
 # Load JSON data from file
 with open("ips.json", "r") as f:
     data = json.load(f)  # Assuming it's a list of IPs in the file
 
+# Count occurrences by country
+country_counts = Counter(entry.get("country", "Unknown") for entry in data)
+
+# Sort by number of occurrences
+sorted_country_counts = sorted(country_counts.items(), key=lambda x: x[1], reverse=True)
+
+# Print sorted results
+for country, count in sorted_country_counts:
+    print(f"{country}: {count} IPs")
 
 # Create a dictionary to group IPs by country
 country_groups = defaultdict(list)

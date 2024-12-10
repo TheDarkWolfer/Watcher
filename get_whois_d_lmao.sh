@@ -167,6 +167,9 @@ if ! [[ "$UNITE" = "true" ]] ; then
     echo -e "]" >> "$DATE-IPs.json"
 fi
 
+# Remove the last unecessary comma
+sed '$s/,$//' "$DATE-IPs.json" > "$DATE-IPs.json"
+
 # Calculate the program's runtime
 END=$(date +%s)
 DURATION=$((END - START))
