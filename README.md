@@ -99,9 +99,24 @@ If you want to check every IP address even if they were already whois'd in a pre
 ```
 ./get_whois_d_lmao.sh -fs # Or --from-scratch
 ```
+
+It is also possible to use the maths.py script to see the source of the connections in a pie graph.
+To do so, you can use the script as follows :
+
+This will open a window containing the graph and it's legend
+```
+python3 ./maths.py <json file of IPs>
+```
+
+This will save the graph to the given file name (Note that a default save name would be graph-YYYY-MM-DD-HH-MM-SS.png)
+```
+python3 ./maths.py <json file of IPs> -s <save name> 
+# You can also use --save instead of -s
+```
+
 ## To-Do list
--[ ] Separate WHOIS and ipinfo.io results
--[ ] Add data plotting of the IP's information
+-[x] Separate WHOIS and ipinfo.io results
+-[x] Add data plotting of the IP's information
 
 ## Running in a non-interactive environment
 
