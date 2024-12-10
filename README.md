@@ -115,8 +115,8 @@ python3 ./maths.py <json file of IPs> -s <save name>
 ```
 
 ## To-Do list
--[x] Separate WHOIS and ipinfo.io results
--[x] Add data plotting of the IP's information
+- [x] Separate WHOIS and ipinfo.io results
+- [x] Add data plotting of the IP's information
 
 ## Running in a non-interactive environment
 
