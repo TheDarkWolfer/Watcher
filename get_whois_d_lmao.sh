@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Exit codes
+# -99           :       user displayed the help page
+# 1             :       no valid IP found in watcher logs
+
+
 START=$(date +%s)
 
 # Source .env file to avoid hardcoding tokens
@@ -21,6 +26,18 @@ for arg in "$@"; do
             NO_POLL=true
             RESULT_FILE="IPs.log"
             echo -e "IPs will be logged to IPs.log with no polling of whois servers or ipinfo"
+            ;;
+        
+        # Help argument to display the different options for the program, after which it exits.
+        --help|-h)
+            echo -e "Script used to poll WHOIS servers and ipinfo.io in order to gather information on
+            the IPs present in watcher's log files. 
+            Arguments :
+                -np --no-poll       :   doesn't poll the server, just counts and saves unique IP addresses
+                -fs --from-scratch  :   ignores previous results
+                -h  --help          :   prints this message
+            "
+            exit -99
             ;;
     esac
 done
