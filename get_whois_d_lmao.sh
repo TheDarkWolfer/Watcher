@@ -71,7 +71,7 @@ fi
 DONE=0
 
 # Date for the log names
-DATE="$(date +'%Y%m%d-%H-%M-%S-')"
+DATE="$(date +'%Y%m%d-%H-%M-%S')"
 
 # Check for already processed IPs
 if ! [[ $FROM_SCRATCH = "true" ]] ; then
