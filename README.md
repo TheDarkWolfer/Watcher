@@ -117,7 +117,7 @@ python3 ./maths.py <json file of IPs> -s <save name>
 ## To-Do list
 - [x] Separate WHOIS and ipinfo.io results
 - [x] Add data plotting of the IP's information
-- [ ] More uses in `maths.py` for the obtained data
+- [x] More uses in `maths.py` for the obtained data
 - [ ] Find a way to fix the error about line 3 in `.env` when using `get_whois_d_lmao.sh`
 
 ## Running in a non-interactive environment
